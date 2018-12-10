@@ -9,6 +9,7 @@ void updateTimer() {
 
 void getMillis() {
   millisecondCommon = millis();
+  microsecondCommon = micros();
 }
 
 void findTime(){

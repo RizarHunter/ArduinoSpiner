@@ -1,3 +1,7 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(0,1,4,5,6,7);
+
+
 #define enb 13
 #define dir 12
 #define pul 11
@@ -11,13 +15,15 @@ int counter = 20;
 int aState;
 int aLastState;
 
-long millisecondCommon;
+unsigned long microsecondCommon;
+unsigned long millisecondCommon;
 int millisecondLast;
 int millisecond;
 int second;
 int minute;
 int hour;
 int lastSendSecond;
+int lastSendMillisecond;
 
 double spinPerMinute = 1;
 double delaySpeed = 1200;

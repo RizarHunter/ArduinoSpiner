@@ -8,7 +8,7 @@ void updateLogick(){
 }
 
 void makeSpeed(){
-  int maxSpeed = 22;
+  int maxSpeed = 24;
   if (counter > maxSpeed) counter = maxSpeed;
   if (counter < -maxSpeed) counter = -maxSpeed;
   if (counter == 0) { spinPerMinute = 0; return; }
@@ -17,7 +17,7 @@ void makeSpeed(){
     spinPerMinute = counter/10.0;
   }
   else{
-    spinPerMinute = (abs(counter)-19) * 2 * counter/abs(counter);
+    spinPerMinute = (abs(counter)-18) * 1 * counter/abs(counter);
   }
 }
 
