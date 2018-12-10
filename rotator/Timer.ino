@@ -8,8 +8,8 @@ void updateTimer() {
 }
 
 void getMillis() {
+  microsecondCommon = micros() % microsecondMax;
   millisecondCommon = millis();
-  microsecondCommon = micros();
 }
 
 void findTime(){

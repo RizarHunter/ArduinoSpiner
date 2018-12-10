@@ -8,30 +8,32 @@ void setupEngine(){
 }
 
 void updateEngine(){
-  if (isWork){
       updateFirstWay();
-    
       //updateSecondWay();
-  }
 }
-
 void updateFirstWay(){
-  if (millisecondCommon - delaySpeed > numberOfSpinning){
+  if (
+    //findNewPeriod();
+    millisecondCommon - (delaySpeed / 1000) > numberOfSpinning
+    ) {
       spinOneTime();
-      numberOfSpinning = millisecondCommon - delaySpeed;
+      numberOfSpinning = millisecondCommon - delaySpeed / 1000;
     }
 }
 void spinOneTime(){
-  if ((int)(millisecondCommon / delaySpeed) % 2==0) digitalWrite(pul, HIGH);
+  if ((int)(millisecondCommon / (delaySpeed / 1000)) % 2 == 0) digitalWrite(pul, HIGH);
   else digitalWrite(pul, LOW);
-  /*spinSide != spinSide;
-  if (spinSide) digitalWrite(pul, HIGH);
-  else digitalWrite(pul, LOW);*/
 }
 
-void updateSecondWay(){
-  delayMicroseconds(delaySpeed);
-  digitalWrite(pul, HIGH);
-  delayMicroseconds(delaySpeed);
-  digitalWrite(pul, HIGH);
+bool findNewPeriod() {
+  unsigned long t; 
+  unsigned long period;
+  bool toReturn = false;
+  
+  //int numberOfPart = microsecondCommon / (microsecondMax / sendPer1Seconds);
+  //if (numberOfPart != lastSendMicrosecond) {
+  //    toReturn = true;
+  //    lastSendMicrosecond = numberOfPart;
+  //}
+  return toReturn;
 }

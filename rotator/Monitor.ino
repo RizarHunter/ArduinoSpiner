@@ -9,7 +9,7 @@ void updateMonitor() {
 }
 
 void updateDisplay() {
-  if ((millisecondCommon + 1000 - lastSendMillisecond) % 1000 > 50) {
+  if (sendTimerDataToMonitor()) {
     if (spinPerMinute == 0) {
       lcd.setCursor(0, 0);
       lcd.print("PAUSE   ");
@@ -18,13 +18,20 @@ void updateDisplay() {
     }
     else {
       lcd.setCursor(0, 0);
-      String spinPerMinuteString = " " + String(spinPerMinute)+"  ";
-      lcd.print(spinPerMinuteString);
+      lcd.print(" " + String(spinPerMinute)+"  ");
       lcd.setCursor(0, 1);
-      lcd.print(" sp/min ");
+      lcd.print(delaySpeed/*" sp/min "*/);
     }
-    lastSendMillisecond = millisecondCommon;
   }
+}
+bool sendTimerDataToMonitor() {
+  bool toReturn = false;
+  int numberOfPart = microsecondCommon / (microsecondMax / sendPer1Seconds);
+  if (numberOfPart != lastSendMicrosecond) {
+      toReturn = true;
+      lastSendMicrosecond = numberOfPart;
+  }
+  return toReturn;
 }
 
 void sendToLebtop() {

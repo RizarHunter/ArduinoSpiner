@@ -15,7 +15,9 @@ int counter = 20;
 int aState;
 int aLastState;
 
+unsigned long sendPer1Seconds = 20;
 unsigned long microsecondCommon;
+unsigned long microsecondMax = 1000000ul;
 unsigned long millisecondCommon;
 int millisecondLast;
 int millisecond;
@@ -23,19 +25,16 @@ int second;
 int minute;
 int hour;
 int lastSendSecond;
-int lastSendMillisecond;
+int lastSendMicrosecond;
 
 double spinPerMinute = 1;
-double delaySpeed = 1200;
+double delaySpeed = 100;
 
 int spinSparps = 60;
 bool lastStateOfSensorPin = false;
 int spins = 0;
 double numberOfSpinning = 0;
 bool spinSide = false;
-
-bool lastPush = false;
-bool isWork = true;
 
 void setup() {
   setupTimer();

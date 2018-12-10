@@ -7,16 +7,11 @@ void setupRuler(){
 }
 
 void updateRuler(){
-  //updateButton();
+  updateButton();
   updateRing();
 }
 
-void updateButton(){
-  if (/*lastPush == false && */lastPush != digitalRead(rulerButtonPin)){
-    isWork = !isWork;
-  }
-  lastPush = digitalRead(rulerButtonPin);
-}
+void updateButton(){ }
 
 void updateRing(){
   aState = digitalRead(outputA);
