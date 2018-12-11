@@ -1,39 +1,92 @@
-void setupEngine(){
-  pinMode(pul, OUTPUT);  
-  pinMode(dir, OUTPUT);  
-  pinMode(enb, OUTPUT);  
+void setupEngine() {
+  pinMode(pul, OUTPUT);
+  pinMode(dir, OUTPUT);
+  pinMode(enb, OUTPUT);
   //digitalWrite(dir, HIGH);
   digitalWrite(enb, HIGH);
   digitalWrite(enb, LOW);
 }
 
-void updateEngine(){
-      updateFirstWay();
-      //updateSecondWay();
+void updateEngine() {
+  updateSteperSecondVariant();
+  //updateSteperThirdVariant();
 }
-void updateFirstWay(){
-  if (
-    //findNewPeriod();
-    millisecondCommon - (delaySpeed / 1000) > numberOfSpinning
-    ) {
-      spinOneTime();
-      numberOfSpinning = millisecondCommon - delaySpeed / 1000;
+
+
+void updateSteperSecondVariant() {
+  something2();
+  pulBoolSetPin2();
+}
+bool findNewPeriod2() {
+  lastTimeOfChaging = thousand * millisecondCommon / delaySpeed + microsecondCommon % thousand / delaySpeed;
+
+  if (lastEngineSpinTime != lastTimeOfChaging) {
+    lastEngineSpinTime = lastTimeOfChaging;
+    numberOfSpinning++;
+    return true;
+  }
+  else return false;
+}
+void something2() {
+  if (findNewPeriod2() && numberOfSpinning % 2 == 0) {
+    delayCounter = microsecondCommon % 1000;
+    delayCounterMillis = millisecondCommon;
+    pulBool = false;
+  }
+  else {
+    if (pulBool) {
+      
     }
+    else {
+      if (microsecondCommon % 1000 + millisecondCommon * 1000 -
+          delayCounter % 1000 - delayCounterMillis * 1000
+          > delayStop) {
+        pulBool = true;
+      }
+    }
+  }
 }
-void spinOneTime(){
-  if ((int)(millisecondCommon / (delaySpeed / 1000)) % 2 == 0) digitalWrite(pul, HIGH);
+void pulBoolSetPin2() {
+  if (pulBool) digitalWrite(pul, HIGH);
   else digitalWrite(pul, LOW);
 }
 
-bool findNewPeriod() {
-  unsigned long t; 
-  unsigned long period;
-  bool toReturn = false;
-  
-  //int numberOfPart = microsecondCommon / (microsecondMax / sendPer1Seconds);
-  //if (numberOfPart != lastSendMicrosecond) {
-  //    toReturn = true;
-  //    lastSendMicrosecond = numberOfPart;
-  //}
-  return toReturn;
+
+
+void updateSteperThirdVariant() {
+  something3();
+  pulBoolSetPin3();
+}
+bool findNewPeriod3() {
+  unsigned long t = 1000 * millisecondCommon + microsecondCommon % 1000;
+  numberOfSpinning = (int)(t / delaySpeed);
+
+  if (lastEngineSpinTime != numberOfSpinning) {
+    lastEngineSpinTime = numberOfSpinning;
+    return true;
+  }
+  else return false;
+}
+void something3() {
+  if (findNewPeriod3() && numberOfSpinning % 2 == 0) {
+    delayCounter = microsecondCommon % 1000;
+    delayCounterMillis = millisecondCommon;
+    pulBool = false;
+  }
+  else {
+    if (pulBool) {
+      
+    }
+    else {
+      if (microsecondCommon % 1000 + millisecondCommon * 1000 -
+          delayCounter % 1000 - delayCounterMillis * 1000
+          > delayStop) {
+        pulBool = true;
+      }
+    }
+  }
+}
+void pulBoolSetPin3() {
+  if (pulBool) digitalWrite(pul, HIGH);
+  else digitalWrite(pul, LOW);
 }

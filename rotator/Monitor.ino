@@ -20,7 +20,10 @@ void updateDisplay() {
       lcd.setCursor(0, 0);
       lcd.print(" " + String(spinPerMinute)+"  ");
       lcd.setCursor(0, 1);
-      lcd.print(delaySpeed/*" sp/min "*/);
+      lcd.print(
+        //lastEngineSpinTime
+        delaySpeed
+      /*" sp/min "*/);
     }
   }
 }

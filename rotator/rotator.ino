@@ -18,6 +18,7 @@ int aLastState;
 unsigned long sendPer1Seconds = 20;
 unsigned long microsecondCommon;
 unsigned long microsecondMax = 1000000ul;
+unsigned long thousand = 1000ul;
 unsigned long millisecondCommon;
 int millisecondLast;
 int millisecond;
@@ -26,14 +27,21 @@ int minute;
 int hour;
 int lastSendSecond;
 int lastSendMicrosecond;
+int lastEngineSpinTime = 0;
 
+
+unsigned long lastTimeOfChaging = 0;
 double spinPerMinute = 1;
-double delaySpeed = 100;
+unsigned long delaySpeed = 10000;
+double delayStop = 340;
+unsigned long delayCounter = 0;
+unsigned long delayCounterMillis = 0;
+bool pulBool = false;
 
 int spinSparps = 60;
 bool lastStateOfSensorPin = false;
 int spins = 0;
-double numberOfSpinning = 0;
+unsigned long numberOfSpinning = 0;
 bool spinSide = false;
 
 void setup() {

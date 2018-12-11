@@ -8,7 +8,7 @@ void updateLogick(){
 }
 
 void makeSpeed(){
-  int maxSpeed = 100;
+  int maxSpeed = 400;
   if (counter > maxSpeed) counter = maxSpeed;
   if (counter < -maxSpeed) counter = -maxSpeed;
   
@@ -26,7 +26,7 @@ void makeTimeDelay(){
     if (spinPerMinute > 0) digitalWrite(dir, HIGH);
     else digitalWrite(dir, LOW);
 
-    delaySpeed = (60.0f / abs(spinPerMinute)) * 1200;
+    delaySpeed = (long)round(1200*60.0 / abs(spinPerMinute));
     //delaySpeed = /*60.0f*1200/1000*/ 72.0f / abs(spinPerMinute);
   }
 }
