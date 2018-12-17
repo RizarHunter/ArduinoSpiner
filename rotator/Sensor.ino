@@ -3,7 +3,9 @@ void setupSensor(){
 }
 
 void updateSensor(){
-  if (digitalRead(sensorPin) != lastStateOfSensorPin){
+  if (digitalRead(sensorPin) != lastStateOfSensorPin 
+   //&& digitalRead(sensorPin) != true
+   ){
     lastStateOfSensorPin = digitalRead(sensorPin);
     spins++;
   }

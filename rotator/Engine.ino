@@ -14,79 +14,35 @@ void updateEngine() {
 
 
 void updateSteperSecondVariant() {
-  something2();
-  pulBoolSetPin2();
+  changingOfHighAndLow();
+  pulBoolSetPin();
 }
-bool findNewPeriod2() {
-  lastTimeOfChaging = thousand * millisecondCommon / delaySpeed + microsecondCommon % thousand / delaySpeed;
+void changingOfHighAndLow() {
+  if (isWork && findNewPeriod()) {
+    if (numberOfSpinning % 2 == 0){
+      pulBool = false;
+    }
+    else {
+      pulBool = true;
+    }
+  }
+}
+bool findNewPeriod() {
+  lastTimeOfChanging = millisecondCommon * thousand / delaySpeed 
+    + microsecondCommon / delaySpeed % thousand;
 
-  if (lastEngineSpinTime != lastTimeOfChaging) {
-    lastEngineSpinTime = lastTimeOfChaging;
+  if (lastEngineSpinTime != lastTimeOfChanging) {
+    lastEngineSpinTime = lastTimeOfChanging;
     numberOfSpinning++;
     return true;
   }
-  else return false;
-}
-void something2() {
-  if (findNewPeriod2() && numberOfSpinning % 2 == 0) {
-    delayCounter = microsecondCommon % 1000;
-    delayCounterMillis = millisecondCommon;
-    pulBool = false;
-  }
   else {
-    if (pulBool) {
-      
-    }
-    else {
-      if (microsecondCommon % 1000 + millisecondCommon * 1000 -
-          delayCounter % 1000 - delayCounterMillis * 1000
-          > delayStop) {
-        pulBool = true;
-      }
-    }
+    lastEngineSpinTime = lastTimeOfChanging;
+    return false;
   }
 }
-void pulBoolSetPin2() {
-  if (pulBool) digitalWrite(pul, HIGH);
-  else digitalWrite(pul, LOW);
-}
 
-
-
-void updateSteperThirdVariant() {
-  something3();
-  pulBoolSetPin3();
-}
-bool findNewPeriod3() {
-  unsigned long t = 1000 * millisecondCommon + microsecondCommon % 1000;
-  numberOfSpinning = (int)(t / delaySpeed);
-
-  if (lastEngineSpinTime != numberOfSpinning) {
-    lastEngineSpinTime = numberOfSpinning;
-    return true;
-  }
-  else return false;
-}
-void something3() {
-  if (findNewPeriod3() && numberOfSpinning % 2 == 0) {
-    delayCounter = microsecondCommon % 1000;
-    delayCounterMillis = millisecondCommon;
-    pulBool = false;
-  }
-  else {
-    if (pulBool) {
-      
-    }
-    else {
-      if (microsecondCommon % 1000 + millisecondCommon * 1000 -
-          delayCounter % 1000 - delayCounterMillis * 1000
-          > delayStop) {
-        pulBool = true;
-      }
-    }
-  }
-}
-void pulBoolSetPin3() {
+void pulBoolSetPin() {
   if (pulBool) digitalWrite(pul, HIGH);
   else digitalWrite(pul, LOW);
 }

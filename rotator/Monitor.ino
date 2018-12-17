@@ -1,6 +1,6 @@
 void setupMonitor() {
   //Serial.begin(9600);
-  lcd.begin(16, 2);
+  lcd.begin(20, 2);
 }
 
 void updateMonitor() {
@@ -10,21 +10,24 @@ void updateMonitor() {
 
 void updateDisplay() {
   if (sendTimerDataToMonitor()) {
-    if (spinPerMinute == 0) {
-      lcd.setCursor(0, 0);
-      lcd.print("PAUSE   ");
-      lcd.setCursor(0, 1);
-      lcd.print("  PAUSE");
+    if (isWork) {
+      lcd.setCursor(4, 0);
+      lcd.print(lastTimeOfChanging/*"WORK "*/);
     }
     else {
-      lcd.setCursor(0, 0);
-      lcd.print(" " + String(spinPerMinute)+"  ");
-      lcd.setCursor(0, 1);
-      lcd.print(
-        //lastEngineSpinTime
-        delaySpeed
-      /*" sp/min "*/);
+      if (second % 2 == 0){
+        lcd.setCursor(4, 0);
+        lcd.print("PAUSE");
+      }
+      else{
+        lcd.setCursor(4, 0);
+        lcd.print("     ");
+      }
     }
+    lcd.setCursor(0, 1);
+    lcd.print(" " + String(spinPerMinute)+"  ");
+    lcd.setCursor(8, 1);
+    lcd.print(" sp/min ");
   }
 }
 bool sendTimerDataToMonitor() {
@@ -51,7 +54,6 @@ void sendToLebtop() {
     Serial.print((int)(numberOfSpinning));
     Serial.print(" millis:");
     Serial.println(millisecondCommon);
-
 
     lastSendSecond = second;
   }
