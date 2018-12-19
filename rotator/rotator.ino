@@ -14,11 +14,11 @@ LiquidCrystal lcd(2,3,4,5,6,7);
 
 int timerCounter = 0;
 
-int counter = 20; 
+int counter = 2; 
 int aState;
 int aLastState;
 
-unsigned long sendPer1Seconds = 20;
+unsigned long sendPer1Seconds = 2;
 unsigned long microsecondCommon;
 unsigned long microsecondCommonForEngine;
 unsigned long microsecondMax = 1000000ul;
@@ -33,12 +33,11 @@ int minute;
 int hour;
 int lastSendSecond;
 int lastSendMicrosecond;
-int lastEngineSpinTime = 0;
 
+int dTime, dMicros, dMillis;
 
-unsigned long lastTimeOfChanging = 0;
 double spinPerMinute = 1;
-unsigned long delaySpeed = 10000;
+int delaySpeed = 10000;
 double delayStop = 340;
 unsigned long delayCounter = 0;
 unsigned long delayCounterMillis = 0;
@@ -50,7 +49,7 @@ int spins = 0;
 unsigned long numberOfSpinning = 0;
 bool spinSide = false;
 
-int signalTimeMax = 32;
+int signalTimeMax = 16;
 int signalTime = signalTimeMax;
 bool isPushedButton = false;
 bool isWork = true;

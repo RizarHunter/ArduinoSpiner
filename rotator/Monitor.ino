@@ -11,8 +11,14 @@ void updateMonitor() {
 void updateDisplay() {
   if (sendTimerDataToMonitor()) {
     if (isWork) {
-      lcd.setCursor(4, 0);
-      lcd.print(lastTimeOfChanging/*"WORK "*/);
+      lcd.setCursor(0, 0);
+      lcd.print(
+        //dMicros
+        //microsecondCommonForEngine
+        dTime
+        /*"WORK "*/);
+      lcd.setCursor(10, 0);
+      lcd.print(delaySpeed/*"WORK "*/);
     }
     else {
       if (second % 2 == 0){

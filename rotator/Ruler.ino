@@ -46,8 +46,8 @@ void updateCounterValue(){
    aLastState = aState;
 }
 void updateLimit(){
-  int maxSpeed = 30;
-  int minSpeed = 1;
+  int maxSpeed = 23;
+  int minSpeed = 0;
   if (counter > maxSpeed) counter = maxSpeed;
   if (counter < minSpeed) counter = minSpeed;
 }

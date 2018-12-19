@@ -2,46 +2,51 @@ void setupEngine() {
   pinMode(pul, OUTPUT);
   pinMode(dir, OUTPUT);
   pinMode(enb, OUTPUT);
-  //digitalWrite(dir, HIGH);
   digitalWrite(enb, HIGH);
   digitalWrite(enb, LOW);
 }
 
 void updateEngine() {
-  updateSteperSecondVariant();
-  //updateSteperThirdVariant();
+  updateSteper();
 }
 
-
-void updateSteperSecondVariant() {
-  changingOfHighAndLow();
-  pulBoolSetPin();
-}
-void changingOfHighAndLow() {
-  if (isWork && findNewPeriod()) {
-    if (numberOfSpinning % 2 == 0){
-      pulBool = false;
-    }
-    else {
-      pulBool = true;
-    }
+void updateSteper() {
+  if (isWork) {
+    findNewPeriod();
+    changingOfHighAndLow();
+    pulBoolSetPin();
   }
 }
-bool findNewPeriod() {
-  lastTimeOfChanging = millisecondCommon * thousand / delaySpeed 
-    + microsecondCommon / delaySpeed % thousand;
 
-  if (lastEngineSpinTime != lastTimeOfChanging) {
-    lastEngineSpinTime = lastTimeOfChanging;
+void findNewPeriod() {
+  updateTimeOfSpinning();
+  if (newSpin()) {
+    setTimeOfSpinning();
     numberOfSpinning++;
+  }
+}
+void updateTimeOfSpinning() {
+  dTime = micros() - microsecondCommonForEngine;
+}
+bool newSpin() {
+  if (dTime - delaySpeed > 0 
+    || abs(dTime) > 100000000) // переповнення
     return true;
+  return false;
+}
+void setTimeOfSpinning() {
+  microsecondCommonForEngine = micros();
+  millisecondLastForEngine = millisecondCommon;
+}
+
+void changingOfHighAndLow() {
+  if (numberOfSpinning % 2 == 0) {
+    pulBool = false;
   }
   else {
-    lastEngineSpinTime = lastTimeOfChanging;
-    return false;
+    pulBool = true;
   }
 }
-
 void pulBoolSetPin() {
   if (pulBool) digitalWrite(pul, HIGH);
   else digitalWrite(pul, LOW);
