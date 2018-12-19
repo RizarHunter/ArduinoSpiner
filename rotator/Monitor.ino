@@ -1,27 +1,34 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(2,3,4,5,6,7);
+
+unsigned long sendPer1Seconds = 2; // How many times send data per second to monitor
+int lastSendMicrosecond; // field for time data of last sending
+unsigned long oneSecondInMicros = 1000000ul; 
+
 void setupMonitor() {
-  //Serial.begin(9600);
   lcd.begin(20, 2);
 }
 
 void updateMonitor() {
-  //sendToLebtop();
   updateDisplay();
 }
 
 void updateDisplay() {
   if (sendTimerDataToMonitor()) {
-    if (isWork) {
-      lcd.setCursor(0, 0);
-      lcd.print(
-        //dMicros
-        //microsecondCommonForEngine
-        dTime
-        /*"WORK "*/);
-      lcd.setCursor(10, 0);
-      lcd.print(delaySpeed/*"WORK "*/);
-    }
-    else {
-      if (second % 2 == 0){
+    if (isWork) printWork();
+    else printPause();
+    
+    printAlways();
+  }
+}
+void printWork(){
+  lcd.setCursor(4, 0);
+  lcd.print("WORK ");
+  lcd.setCursor(12, 0);
+  lcd.print(delaySpinTime/*"WORK "*/);
+}
+void printPause(){
+  if (millisecondCommon % 1000 > 500){
         lcd.setCursor(4, 0);
         lcd.print("PAUSE");
       }
@@ -29,38 +36,19 @@ void updateDisplay() {
         lcd.setCursor(4, 0);
         lcd.print("     ");
       }
-    }
-    lcd.setCursor(0, 1);
-    lcd.print(" " + String(spinPerMinute)+"  ");
-    lcd.setCursor(8, 1);
-    lcd.print(" sp/min ");
-  }
 }
+void printAlways(){
+  lcd.setCursor(0, 1);
+  lcd.print(" " + String(spinPerMinute)+"  ");
+  lcd.setCursor(8, 1);
+  lcd.print(" sp/min ");
+}
+
 bool sendTimerDataToMonitor() {
-  bool toReturn = false;
-  int numberOfPart = microsecondCommon / (microsecondMax / sendPer1Seconds);
+  int numberOfPart = microsecondCommon / (oneSecondInMicros / sendPer1Seconds);
   if (numberOfPart != lastSendMicrosecond) {
-      toReturn = true;
       lastSendMicrosecond = numberOfPart;
+      return true;
   }
-  return toReturn;
-}
-
-void sendToLebtop() {
-  if ((second + 60 - lastSendSecond) % 60 == 1) {
-    Serial.print("counter: ");
-    Serial.print(counter);
-    Serial.print(" spinPer: ");
-    Serial.print(spinPerMinute);
-    Serial.print(" delay:");
-    Serial.print(delaySpeed);
-    Serial.print(" spin:");
-    Serial.print(spins);
-    Serial.print(" number:");
-    Serial.print((int)(numberOfSpinning));
-    Serial.print(" millis:");
-    Serial.println(millisecondCommon);
-
-    lastSendSecond = second;
-  }
+  return false;
 }

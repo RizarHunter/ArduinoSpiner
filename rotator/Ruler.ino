@@ -1,3 +1,16 @@
+#define rulerButtonPin 53
+#define outputA 49
+#define outputB 51
+
+bool isPushedButton = false;
+unsigned long millisecondLastPushButton;
+//unsigned long millisecondOfPushing;
+
+int aState;
+int aLastState;
+int maxValue = 23;
+int minValue = 0;
+
 void setupRuler(){
   pinMode(rulerButtonPin, INPUT_PULLUP);
   pinMode (outputA,INPUT);
@@ -28,6 +41,8 @@ bool canChange(){
   return false;
 }
 
+
+
 void updateRing(){
   if (!isWork) {
     updateCounterValue();
@@ -38,16 +53,14 @@ void updateCounterValue(){
   aState = digitalRead(outputA);
    if (aState != aLastState){     
      if (digitalRead(outputB) != aState) { 
-       counter++;
+       positionOfEncoder++;
      } else {
-       counter--;
+       positionOfEncoder--;
      }
    } 
    aLastState = aState;
 }
 void updateLimit(){
-  int maxSpeed = 23;
-  int minSpeed = 0;
-  if (counter > maxSpeed) counter = maxSpeed;
-  if (counter < minSpeed) counter = minSpeed;
+  if (positionOfEncoder > maxValue) positionOfEncoder = maxValue;
+  if (positionOfEncoder < minValue) positionOfEncoder = minValue;
 }

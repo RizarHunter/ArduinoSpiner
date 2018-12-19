@@ -1,3 +1,12 @@
+#define enb 13
+#define dir 12
+#define pul 11
+
+int dTime; // distance between last pul pin changing and this moment
+bool pulBool = false; // type of signal to engine (pin pul)
+unsigned long microsecondCommonForEngine; // last time of changing signal to pul pin
+unsigned long numberOfSpinning = 0; // current number of chenging pul pin
+
 void setupEngine() {
   pinMode(pul, OUTPUT);
   pinMode(dir, OUTPUT);
@@ -9,7 +18,6 @@ void setupEngine() {
 void updateEngine() {
   updateSteper();
 }
-
 void updateSteper() {
   if (isWork) {
     findNewPeriod();
@@ -22,21 +30,23 @@ void findNewPeriod() {
   updateTimeOfSpinning();
   if (newSpin()) {
     setTimeOfSpinning();
-    numberOfSpinning++;
+    addOneNumberOfSpinning();
   }
 }
 void updateTimeOfSpinning() {
   dTime = micros() - microsecondCommonForEngine;
 }
 bool newSpin() {
-  if (dTime - delaySpeed > 0 
+  if (dTime - delaySpinTime > 0 
     || abs(dTime) > 100000000) // переповнення
     return true;
   return false;
 }
 void setTimeOfSpinning() {
-  microsecondCommonForEngine = micros();
-  millisecondLastForEngine = millisecondCommon;
+  microsecondCommonForEngine = getMicros();
+}
+void addOneNumberOfSpinning(){
+  numberOfSpinning++;
 }
 
 void changingOfHighAndLow() {
