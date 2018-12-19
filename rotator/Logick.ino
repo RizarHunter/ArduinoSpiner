@@ -6,11 +6,11 @@ void updateLogick(){
 }
 
 void makeSpeed(){
-  switch (positionOfEncoder / 2){
-    case 0 : { spinPerMinute = 4; delaySpinTime = 200; } break;
-    case 1 : { spinPerMinute = 2; delaySpinTime = 320; } break;
-    case 2 : { spinPerMinute = 1.3; delaySpinTime = 600; } break;
-    case 3 : { spinPerMinute = 1; delaySpinTime = 900; } break;
+  switch (positionOfEncoder / 2) {
+    case 0 : { spinPerMinute = 4; delaySpinTime = 200; } break; // 4
+    case 1 : { spinPerMinute = 3; delaySpinTime = 320; } break; // 3
+    case 2 : { spinPerMinute = 2; delaySpinTime = 600; } break; // 60/35
+    case 3 : { spinPerMinute = 1.2; delaySpinTime = 900; } break; //60/50
     
     case 4 : { spinPerMinute = 0.8; delaySpinTime = 1200; } break;
     case 5 : { spinPerMinute = 0.66; delaySpinTime = 1400; } break;

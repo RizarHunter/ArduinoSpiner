@@ -19,10 +19,19 @@ void updateEngine() {
   updateSteper();
 }
 void updateSteper() {
-  if (isWork) {
+  if (isWork && !toUpMove) {
     findNewPeriod();
     changingOfHighAndLow();
     pulBoolSetPin();
+  }
+  if (toUpMove){
+    findNewPeriod();
+    changingOfHighAndLow();
+    pulBoolSetPin();
+    if (positionOfSensor){
+      toUpMove = false;
+      isWork = false;
+    }
   }
 }
 

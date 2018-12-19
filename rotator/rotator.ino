@@ -1,7 +1,10 @@
-bool isWork = true;
+bool isWork = false;
+bool toUpMove = false;
 
 int positionOfEncoder = 2;
 bool positionOfSensor = false;
+
+unsigned long millisecondOfPushing = 0;
 
 unsigned long microsecondCommon; // microsecond from beginning of program (70m to restart)
 unsigned long millisecondCommon; // millisecond from beginning of program (50d to restart)

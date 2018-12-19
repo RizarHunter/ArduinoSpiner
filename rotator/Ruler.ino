@@ -4,7 +4,8 @@
 
 bool isPushedButton = false;
 unsigned long millisecondLastPushButton;
-//unsigned long millisecondOfPushing;
+
+unsigned long millisecondOfPushingNeed = 10000;
 
 int aState;
 int aLastState;
@@ -25,11 +26,26 @@ void updateRuler(){
 }
 
 void updateButton(){ 
+  toUp();
+  
   if (canChange()){
       startSignal();
       isWork = !isWork;
   }
   isPushedButton = !digitalRead(rulerButtonPin);
+}
+void toUp(){
+  if (!toUpMove && !digitalRead(rulerButtonPin)){
+    millisecondOfPushing++;
+    if (millisecondOfPushing > millisecondOfPushingNeed){
+      toUpMove = true;
+      isWork = true;
+      startSignal(420);
+    }
+  }
+  else {
+    millisecondOfPushing = 0;
+  }
 }
 bool canChange(){
   if (isPushedButton == !digitalRead(rulerButtonPin)) return false;

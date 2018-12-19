@@ -1,4 +1,4 @@
-#define sensorPin 8
+#define sensorPin 31
 
 void setupSensor() {
   pinMode(sensorPin, INPUT);

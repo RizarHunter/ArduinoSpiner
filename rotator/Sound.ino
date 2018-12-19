@@ -29,6 +29,11 @@ void makeSound() {
 void startSignal(){
   signalTime = signalTimeMax;
 }
+
+void startSignal(int timeSignal){
+  signalTime = timeSignal;
+}
+
 void endSignal(){
   signalTime = 0;
 }

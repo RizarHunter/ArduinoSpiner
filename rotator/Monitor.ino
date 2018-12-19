@@ -24,8 +24,7 @@ void updateDisplay() {
 void printWork(){
   lcd.setCursor(4, 0);
   lcd.print("WORK ");
-  lcd.setCursor(12, 0);
-  lcd.print(delaySpinTime/*"WORK "*/);
+
 }
 void printPause(){
   if (millisecondCommon % 1000 > 500){
