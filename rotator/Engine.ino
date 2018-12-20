@@ -46,8 +46,8 @@ void updateTimeOfSpinning() {
   dTime = micros() - microsecondCommonForEngine;
 }
 bool newSpin() {
-  if (dTime - delaySpinTime > 0 
-    || abs(dTime) > 100000000) // переповнення
+  if (dTime - delaySpinTime > 0) 
+    || abs(dTime - delaySpinTime) > 100000000) // переповнення
     return true;
   return false;
 }
